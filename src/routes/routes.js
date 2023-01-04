@@ -3,6 +3,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const { isString, isUndefined, isEmpty, isNumber } = require('lodash');
 const User = require('../model/model');
+const logger = require('../utils/logger')
 
 const router = express.Router();
 
@@ -10,7 +11,6 @@ router.post(
     '/signup',
     // passport.authenticate('signup', { session: false }),
     async (req, res, next) => {
-        console.log('req.body', req.body)
         const {
             name,
             email,
@@ -73,17 +73,20 @@ router.post(
             'login',
             async (err, user, info) => {
                 try {
+                    logger.info('login route')
                     if (err || !user) {
-                        const error = new Error('An error occurred.');
-
-                        return next(error);
+                        const error = new Error(info.message);
+                        // console.log(78, 'err', err, user, info)
+                        throw error;
                     }
 
                     req.login(
                         user,
                         { session: false },
                         async (error) => {
-                            if (error) return next(error);
+                            if (error) {
+                                return next(error);
+                            }
 
                             const userInfo = { _id: user._id, name: user.name, email: user.email, isAdmin: user?.isAdmin };
                             const token = jwt.sign({ user: userInfo }, 'TOP_SECRET');
@@ -92,7 +95,8 @@ router.post(
                         }
                     );
                 } catch (error) {
-                    return next(error);
+                    logger.error(error.message)
+                    return res.status(400).json({code:400, err: true, msg: error.message})
                 }
             }
         )(req, res, next);

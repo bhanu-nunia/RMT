@@ -1,12 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const bodyParser = require('body-parser');
-const fs = require("fs/promises");
-const path = require('path');
-const config = require("./configuaration/config");
-
-const UserModel = require('./model/model');
 
 
 mongoose.set('strictQuery', true);
