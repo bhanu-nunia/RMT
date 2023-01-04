@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 // config.js
-const env = process.env.NODE_ENV; // 'local'
+const env = process.env.local; // 'local'
 
 const local = {
   server: {
@@ -25,6 +25,7 @@ const config = {
   local,
   development,
   production,
+  
 };
 
 module.exports = config[env];

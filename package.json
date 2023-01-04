@@ -4,6 +4,7 @@
   "description": "Node.js service template",
   "main": "src/server.js",
   "scripts": {
+    "dev": "cd src && nodemon app.js",
     "start:prod": "NODE_ENV=production node src/server.js",
     "start:dev": "NODE_ENV=development node src/server.js",
     "start:local": "NODE_ENV=local nodemon src/server.js"
@@ -19,8 +20,18 @@
   },
   "homepage": "https://github.com/mogenius/nodejs-template#readme",
   "dependencies": {
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.20.1",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
-    "nodemon": "^2.0.19"
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^5.13.15",
+    "nodemon": "^2.0.19",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
+    "validator": "^13.7.0"
   }
 }
