@@ -32,7 +32,7 @@ router.get('/users', async (req, res, next) => {
     }
 
     const userInfo = await User.find({}, { password: 0 });
-    return res.status(400).json({ code: 200, err: false, userInfo });
+    return res.status(200).json({ code: 200, err: false, userInfo });
 
   } catch (error) {
     console.log('error', error)
