@@ -73,6 +73,7 @@ router.post(
             'login',
             async (err, user, info) => {
                 try {
+                    logger.info(req.body)
                     logger.error(err)
                     logger.info(user)
                     logger.info(info)
@@ -91,7 +92,6 @@ router.post(
                                 logger.log(error);
                                 throw new Error(error);
                             }
-
                             const userInfo = { _id: user._id, name: user.name, email: user.email, isAdmin: user?.isAdmin };
                             const token = jwt.sign({ user: userInfo }, 'TOP_SECRET');
 
