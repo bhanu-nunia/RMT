@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cors = require('cors');
 
 
 mongoose.set('strictQuery', true);
@@ -18,6 +19,7 @@ const routes = require('./routes/routes');
 const secureRoute = require('./routes/secure-routes');
 
 const app = express();
+app.use(cors())
 
 app.use(express.json());
 app.use(express.urlencoded({
