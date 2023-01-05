@@ -177,13 +177,6 @@ router.put('/users/:id', async (req, res, next) => {
     return res.status(400).json({ code: 400, error: true, msg: "Enter a valid password" });
   }
 
-  const userExists = await User.findOne({ email: email });
-
-  if (userExists) {
-    if (userExists.email == email) {
-      return res.status(400).json({ code: 400, err: true, msg: `user with mail ID ${email} already present` });
-    }
-  }
 
   const userInfo = {
     name,
