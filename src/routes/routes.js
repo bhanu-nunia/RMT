@@ -85,7 +85,9 @@ router.post(
                         { session: false },
                         async (error) => {
                             if (error) {
-                                return next(error);
+                                // return next(error);
+                                logger.log(error);
+                                throw new Error(error);
                             }
 
                             const userInfo = { _id: user._id, name: user.name, email: user.email, isAdmin: user?.isAdmin };
