@@ -19,7 +19,6 @@ router.get('/profile', (req, res, next) => {
 router.get('/users', async (req, res, next) => {
   try {
     // get all users record
-
     if (req.user && req.user?.isAdmin == false) {
       return res.status(400).json({ code: 400, err: true, msg: `you are not allowed to access this route` });
     }
@@ -31,9 +30,12 @@ router.get('/users', async (req, res, next) => {
       return res.status(400).json({ code: 400, err: true, msg: `Admin Id is not valid!`, meta: error });
     }
 
-    const userInfo = await User.find({}, { password: 0 });
-    return res.status(200).json({ code: 200, err: false, userInfo });
+    const userRawInfo = await User.find({}, { password: 0 });
+    const userInfo = userRawInfo.filter((item) => {
+      return item._id != req.user._id
+    });
 
+    return res.status(200).json({ code: 200, err: false, userInfo });
   } catch (error) {
     console.log('error', error)
     return res.status(400).json({ code: 400, err: true, msg: `Something went wrong!`, meta: error })
