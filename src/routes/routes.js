@@ -73,7 +73,9 @@ router.post(
             'login',
             async (err, user, info) => {
                 try {
-                    logger.info('login route')
+                    logger.error(err)
+                    logger.info(user)
+                    logger.info(info)
                     if (err || !user) {
                         const error = new Error(info.message);
                         // console.log(78, 'err', err, user, info)
@@ -98,7 +100,7 @@ router.post(
                     );
                 } catch (error) {
                     logger.error(error.message)
-                    return res.status(400).json({code:400, err: true, msg: error.message})
+                    return res.status(400).json({ code: 400, err: true, msg: error.message })
                 }
             }
         )(req, res, next);
